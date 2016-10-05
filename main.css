@@ -1,0 +1,46 @@
+#stories {
+	list-style: none;
+	padding-left: 0px;
+}
+
+#stories > li {
+	margin-bottom: 10px;
+}
+
+.story {
+	background-color: #EEE;
+}
+
+.story > section {
+	display: inline-block;
+	padding: 4px;
+	height: 36px;
+}
+
+.story > .left {
+	width: calc(100% * 0.8 - 10px);
+	left: 0;
+}
+
+.story > .left > .title {
+	text-overflow: ellipsis;
+}
+
+.story > .left > .domain {
+	color: gray;
+}
+
+.story > .right {
+	width: calc(100% * 0.2 - 10px);
+	right: 0;
+	text-align: right;
+	background-color: #DDD;
+}
+
+.story > .right > .time {
+	float: right;
+}
+
+.story > .right > .votes {
+	float: left;
+}
