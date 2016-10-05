@@ -12,10 +12,7 @@ function createHN() {
 		new: function(start, end) {
 			return req(endpoint("newstories.json"))
 				.then((res) => {
-					if (amount) {
-						return res.data.slice(start, end);
-					}
-					return res.data;
+					return res.data.slice(start, end);
 				});
 		},
 		top: function(start, end) {
