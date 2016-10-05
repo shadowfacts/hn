@@ -1,30 +1,6 @@
 var loaded = 0;
-let hash = window.location.hash.substring(1);
 
-if (hash.length != 0 && !isNaN(hash)) { // viewing an item
-	displayItem(hash);
-} else { // display posts list
-	loadPosts();
-}
-
-function displayItem(id) {
-	hn.item(id)
-		.then((item) => {
-			if (item.type == "story") {
-				displayStory(item);
-			} else {
-				displyComment(item);
-			}
-		});
-}
-
-function dislayStory(item) {
-	
-}
-
-function displayComment(item) {
-	
-}
+loadPosts();
 
 function loadPosts() {
 	let list = $("<ul></ul>");
@@ -48,7 +24,9 @@ function load(start) {
 
 	let list = $("#stories");
 
-	hn.top(start, start + 15)
+	let loadFunc = getLoadFunc();
+
+	loadFunc(start, start + 15)
 		.then((stories) => {
 			stories.forEach((id) => {
 				hn.item(id)
@@ -57,6 +35,23 @@ function load(start) {
 					});
 			});
 		})
+}
+
+function getLoadFunc() {
+	let mode = window.location.hash.substring(1).toLowerCase();
+	if (mode == "new") {
+		return hn.new;
+	} else if (mode == "best") {
+		return hn.best;
+	} else if (mode == "ask") {
+		return hn.ask;
+	} else if (mode == "show") {
+		return hn.show;
+	} else if (mode == "jobs") {
+		return hn.jobs;
+	} else {
+		return hn.top;
+	}
 }
 
 function createItem(item) {
