@@ -10,8 +10,20 @@ if (hash.length != 0 && !isNaN(hash)) { // viewing an item
 function displayItem(id) {
 	hn.item(id)
 		.then((item) => {
-			// TODO: me
+			if (item.type == "story") {
+				displayStory(item);
+			} else {
+				displyComment(item);
+			}
 		});
+}
+
+function dislayStory(item) {
+	
+}
+
+function displayComment(item) {
+	
 }
 
 function loadPosts() {
@@ -60,14 +72,18 @@ function createItem(item) {
 <li>
 	<div class="story">
 		<section class="left">
-			<p class="title">${item.title}</p>
-			<p class="domain">${getDomain(item.url)}</p>
+			<a href="/story.html#${item.id}">
+				<p class="title">${item.title}</p>
+				<p class="domain">${getDomain(item.url)}</p>
+			</a>
 		</section>
 		<section class="right">
-			<span class="time">${ago(item.time)}</span>
-			<br>
-			<span class="votes">${item.score}</span>
-			<span class="comments">${item.kids ? item.kids.length : 0}</span>
+			<a href="/comments.html${item.id}">
+				<span class="time">${ago(item.time)}</span>
+				<br>
+				<span class="votes">${item.score}</span>
+				<span class="comments">${item.kids ? item.kids.length : 0}</span>
+			</a>
 		</section>
 	</div>
 </li>

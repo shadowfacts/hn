@@ -26,13 +26,13 @@
 	margin: 0px;
 }
 
-.story > .left > .title {
+.story > .left > a > .title {
 	text-overflow: ellipsis;
 	overflow: hidden;
 	white-space: nowrap;
 }
 
-.story > .left > .domain {
+.story > .left > a > .domain {
 	color: gray;
 }
 
@@ -43,14 +43,14 @@
 	background-color: #DDD;
 }
 
-.story > .right > p {
+.story > .right > a > p {
 	margin: 0px;
 }
 
-.story > .right > .time {
+.story > .right > a > .time {
 	float: right;
 }
 
-.story > .right > .votes {
+.story > .right > a > .votes {
 	float: left;
 }
