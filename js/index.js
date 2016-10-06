@@ -3,20 +3,13 @@ var loaded = 0;
 loadPosts();
 
 function loadPosts() {
-	let list = $("<ul></ul>");
-	list.attr("id", "stories");
-	list.appendTo(document.body);
+	let list = $("#stories");
 
-	let btn = $("<button></button>");
-	btn.attr("id", "more");
-	btn.text("More...");
-	btn.appendTo(document.body);
-	btn.click(() => {
+	$("#more").click(() => {
 		load(loaded);
 	});
 
 	load(loaded);
-	// TODO: go to next page
 }
 
 function load(start) {
@@ -73,9 +66,9 @@ function createItem(item) {
 			</a>
 		</section>
 		<section class="right">
+			<span class="time">${ago(item.time)}</span>
+			<br>
 			<a href="/comments.html${item.id}">
-				<span class="time">${ago(item.time)}</span>
-				<br>
 				<span class="votes">${item.score}</span>
 				<span class="comments">${item.kids ? item.kids.length : 0}</span>
 			</a>
