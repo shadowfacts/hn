@@ -11,46 +11,42 @@
 	background-color: #EEE;
 }
 
-.story > section {
+.story p {
+	margin: 0px;
+}
+
+.story section {
 	display: inline-block;
 	padding: 4px;
 	height: 36px;
 }
 
-.story > .left {
+.story .left {
 	width: calc(100% * 0.8 - 10px);
 	left: 0;
 }
 
-.story > .left > a > p {
-	margin: 0px;
-}
-
-.story > .left > a > .title {
+.story .title {
 	text-overflow: ellipsis;
 	overflow: hidden;
 	white-space: nowrap;
 }
 
-.story > .left > a > .domain {
+.story .domain {
 	color: gray;
 }
 
-.story > .right {
+.story .right {
 	width: calc(100% * 0.2 - 10px);
 	right: 0;
 	text-align: right;
 	background-color: #DDD;
 }
 
-.story > .right > a > p {
-	margin: 0px;
-}
-
-.story > .right > a > .time {
+.story .time {
 	float: right;
 }
 
-.story > .right > a > .votes {
+.story .votes {
 	float: left;
 }
