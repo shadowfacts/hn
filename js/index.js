@@ -68,7 +68,7 @@ function createItem(item) {
 		<section class="right">
 			<span class="time">${ago(item.time)}</span>
 			<br>
-			<a href="/comments.html${item.id}">
+			<a href="/comments.html#${item.id}">
 				<span class="votes">${item.score}</span>
 				<span class="comments">${item.kids ? item.kids.length : 0}</span>
 			</a>
@@ -90,31 +90,4 @@ function getDomain(url) {
 		}
 	}
 	return "";
-}
-
-let MILIS = 1;
-let SECOND = MILIS * 1000;
-let MINUTE = SECOND * 60;
-let HOUR = MINUTE * 60;
-let DAY = HOUR * 24;
-let MONTH = DAY * 30;
-let YEAR = DAY * 365;
-
-function ago(time) {
-	let delta = Date.now() - (time * 1000);
-	if (delta >= YEAR) {
-		return Math.floor(delta / YEAR) + " yrs";
-	} else if (delta >= MONTH) {
-		return Math.floor(delta / MONTH) + " months";
-	} else if (delta >= DAY) {
-		return Math.floor(delta / DAY) + " days";
-	} else if (delta >= HOUR) {
-		return Math.floor(delta / HOUR) + " hrs";
-	} else if (delta >= MINUTE) {
-		return Math.floor(delta / MINUTE) + " min"
-	} else if (delta >= SECOND) {
-		return Math.floor(delta / SECOND) + " secs";
-	} else {
-		return delta + " ms";
-	}
 }
