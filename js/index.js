@@ -20,12 +20,22 @@ function load(start) {
 	const loadFunc = getLoadFunc();
 
 	loadFunc(start, start + 15)
-		.then((stories) => {
-			stories.forEach((id) => {
-				hn.item(id)
-					.then((item) => {
-						list.append(createItem(item));
-					});
+		.then((ids) => {
+			const requests = new Array(ids.length);
+			const stories = new Array(ids.length);
+			
+			for (let i = 0; i < ids.length; i++) {
+				requests[i] = hn.item(ids[i]);
+			}
+
+			$.when.apply($, requests).done(function() {
+				$.each(arguments, function(i, data) {
+					stories[i] = createItem(data);
+				});
+
+				for (let i = 0; i < stories.length; i++) {
+					list.append(stories[i]);
+				}
 			});
 		})
 }
