@@ -1,7 +1,7 @@
 loadItem();
 
 function loadItem() {
-	let hash = window.location.hash.substring(1);
+	const hash = window.location.hash.substring(1);
 	hn.item(hash)
 		.then((item) => {
 			if (item.type == "story") {
@@ -13,31 +13,31 @@ function loadItem() {
 }
 
 function showStory(item) {
-	let container = $("#container");
+	const container = $("#container");
 
-	let title = $("<h1></h1>");
+	const title = $("<h1></h1>");
 	title.text(item.title);
 	container.append(title);
 
-	let url = $("<a></a>");
+	const url = $("<a></a>");
 	url.text(item.url);
 	url.attr("href", item.url);
 	container.append(url);
 
-	let info = $("<p></p>");
+	const info = $("<p></p>");
 	info.text(`by ${item.by}, ${ago(item.time)} ago, ${item.score} point${getPluralEnding(item.score)}`);
 	container.append(info);
 
 }
 
 function showComment(item) {
-	let container = $("#container");
+	const container = $("#container");
 
-	let text = $("<p></p>");
+	const text = $("<p></p>");
 	text.html(item.text);
 	container.append(text);
 
-	let info = $("<p></p>");
+	const info = $("<p></p>");
 	info.text(`by ${item.by}, ${ago(item.time)} ago`);
 	container.append(info);
 
@@ -45,7 +45,7 @@ function showComment(item) {
 		.then((parent) => {
 			info.append(`, on `);
 
-			let link = $(`<a></a>`);
+			const link = $(`<a></a>`);
 			link.attr("href", `/comments.html#${parent.id}`);
 			link.text(parent.type == "story" ? parent.title : "comment");
 			link.click((e) => {

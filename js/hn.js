@@ -1,10 +1,10 @@
 function createHN() {
-	var req = function(url) {
+	const req = function(url) {
 		return axios.get(url)
 			.catch(console.error);
 	}
 
-	var endpoint = function(path) {
+	const endpoint = function(path) {
 		return `https://hacker-news.firebaseio.com/v0/${path}`;
 	}
 

@@ -1,9 +1,9 @@
-var loaded = 0;
+let loaded = 0;
 
 loadPosts();
 
 function loadPosts() {
-	let list = $("#stories");
+	const list = $("#stories");
 
 	$("#more").click(() => {
 		load(loaded);
@@ -15,9 +15,9 @@ function loadPosts() {
 function load(start) {
 	loaded += 15;
 
-	let list = $("#stories");
+	const list = $("#stories");
 
-	let loadFunc = getLoadFunc();
+	const loadFunc = getLoadFunc();
 
 	loadFunc(start, start + 15)
 		.then((stories) => {
@@ -31,7 +31,7 @@ function load(start) {
 }
 
 function getLoadFunc() {
-	let mode = window.location.hash.substring(1).toLowerCase();
+	const mode = window.location.hash.substring(1).toLowerCase();
 	if (mode == "new") {
 		return hn.new;
 	} else if (mode == "best") {
@@ -48,7 +48,7 @@ function getLoadFunc() {
 }
 
 function createItem(item) {
-	var kids = function() {
+	const kids = function() {
 		if (item.kids) {
 			return `<span class="comments">${item.kids.length}</span>`;
 		} else {
@@ -80,9 +80,9 @@ function createItem(item) {
 
 function getDomain(url) {
 	if (url) {
-		let afterProtocol = url.split("://")[1];
-		let parts = afterProtocol.split("/");
-		let domain = parts[0];
+		const afterProtocol = url.split("://")[1];
+		const parts = afterProtocol.split("/");
+		const domain = parts[0];
 		if (domain.startsWith("www.")) {
 			return domain.substring(4);
 		} else {
