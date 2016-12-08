@@ -29,7 +29,7 @@ function load(start) {
 			}
 
 			$.when.apply($, requests).done(function() {
-				$.each(arguments, function(i, data) {
+				$.each(arguments, (i, data) => {
 					stories[i] = createItem(data);
 				});
 
@@ -69,20 +69,20 @@ function createItem(item) {
 	return `
 <li>
 	<div class="story">
-		<section class="left">
-			<a href="/story.html#${item.id}">
+		<a href="${item.url}" target="_blank">
+			<section class="left">
 				<p class="title">${item.title}</p>
 				<p class="domain">${getDomain(item.url)}</p>
-			</a>
-		</section>
-		<section class="right">
-			<span class="time">${ago(item.time)}</span>
-			<br>
-			<a href="/comments.html#${item.id}">
+			</section>
+		</a>
+		<a href="/comments.html#${item.id}">
+			<section class="right">
+				<span class="time">${ago(item.time)}</span>
+				<br>
 				<span class="votes">${item.score}</span>
 				<span class="comments">${item.kids ? item.kids.length : 0}</span>
-			</a>
-		</section>
+			</section>
+		</a>
 	</div>
 </li>
 `;
