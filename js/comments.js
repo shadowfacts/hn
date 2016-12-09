@@ -19,11 +19,19 @@ function showStory(item) {
 	title.text(item.title);
 	container.append(title);
 
-	const url = $("<a></a>");
-	url.text(item.url);
-	url.attr("href", item.url);
-	url.attr("target", "_blank");
-	container.append(url);
+	if (item.text) {
+		const text = $("<p></p>");
+		text.html(item.text);
+		container.append(text);
+	}
+
+	if (item.url) {
+		const url = $("<a></a>");
+		url.text(item.url);
+		url.attr("href", item.url);
+		url.attr("target", "_blank");
+		container.append(url);
+	}
 
 	const info = $("<p></p>");
 	info.html(`<a href="/comments.html#${item.id}" onclick="internalLink(event, this">${ago(item.time)} ago</a> by ${item.by}, ${item.score} point${getPluralEnding(item.score)}, <a href="https://news.ycombinator.com/item?id=${item.id}" target="_blank">on HN</a>`);
