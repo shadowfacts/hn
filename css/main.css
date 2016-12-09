@@ -77,6 +77,15 @@ ul#comments li .details {
 }
 
 ul#comments li p:not(.details) {
-	padding-bottom: 16px;
 	padding-left: 5px;
+	
 }
+
+ul#comments li p:last-of-type {
+	padding-bottom: 16px;
+}
+
+
+/*ul#comments li p:last {
+	padding-bottom: 16px;
+}*/
