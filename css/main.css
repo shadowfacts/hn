@@ -2,11 +2,6 @@
 	font-family: -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
 }
 
-a {
-	white-space: pre-wrap;
-	word-wrap: break-word;
-}
-
 #stories {
 	list-style: none;
 	padding-left: 0px;
@@ -58,6 +53,10 @@ a {
 
 .story .votes {
 	float: left;
+}
+
+#container a {
+	word-wrap: break-word;
 }
 
 ul#comments {
