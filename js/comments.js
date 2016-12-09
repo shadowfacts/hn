@@ -22,15 +22,16 @@ function showStory(item) {
 	const url = $("<a></a>");
 	url.text(item.url);
 	url.attr("href", item.url);
+	url.attr("target", "_blank");
 	container.append(url);
 
 	const info = $("<p></p>");
-	info.html(`by ${item.by}, <a href="https://news.ycombinator.com/item?id=${item.id}" target="_blank">${ago(item.time)} ago</a>, ${item.score} point${getPluralEnding(item.score)}`);
+	info.html(`<a href="/comments.html#${item.id}" onclick="internalLink(event, this">${ago(item.time)} ago</a> by ${item.by}, ${item.score} point${getPluralEnding(item.score)}, <a href="https://news.ycombinator.com/item?id=${item.id}" target="_blank">on HN</a>`);
 	container.append(info);
 
 	const comments = $("<ul id=\"comments\"></ul>");
 
-	createSubComments(item, 0)
+	createSubComments(item, 1)
 		.then((list) => {
 			for (let i = 0; i < list.length; i++) {
 				comments.append(list[i]);
@@ -41,8 +42,6 @@ function showStory(item) {
 }
 
 function createSubComments(item, depth) {
-	depth = depth || 1;
-
 	return new Promise((resolve, reject) => {
 		if (!item.kids) resolve([]);
 
@@ -73,6 +72,19 @@ function createSubComments(item, depth) {
 }
 
 function createComment(item, depth) {
+	if (depth > 4) {
+		return new Promise((resolve, reject) => {
+			resolve(`
+<li>
+	<div>
+		<p class="details">
+			<a href="/comments.html#${item.parent}" onclick="internalLink(event, this)">More...</a>
+		</p>
+	</div>
+</li>`);
+		});
+	}
+
 	return createSubComments(item, depth + 1)
 		.then((children) => {
 			let rendered = "";
@@ -85,7 +97,7 @@ function createComment(item, depth) {
 				return `
 <li>
 	<div>
-		<p><a href="https://news.ycombinator.com/item?id=${item.id}" target="_blank">${ago(item.time)} ago</a></p>
+		<p class="details">${ago(item.time)} ago</p>
 		<p>[deleted]</p>
 	</div>
 </li>`;
@@ -94,7 +106,7 @@ function createComment(item, depth) {
 			return `
 <li>
 	<div>
-		<p>by ${item.by}, <a href="https://news.ycombinator.com/item?id=${item.id}" target="_blank">${ago(item.time)} ago</a></p>
+		<p class="details"><a href="/comments.html#${item.id}" onclick="internalLink(event, this)">${ago(item.time)} ago</a> by ${item.by}, <a href="https://news.ycombinator.com/item?id=${item.id}" target="_blank">on HN</a></p>
 		<p>${item.text}</p>
 		<ul class="children">
 			${rendered}
@@ -112,7 +124,7 @@ function showComment(item) {
 	container.append(text);
 
 	const info = $("<p></p>");
-	info.text(`by ${item.by}, ${ago(item.time)} ago`);
+	info.html(`${ago(item.time)} ago by ${item.by}, <a href="https://news.ycombinator.com/item?id=${item.id}" target="_blank">on HN</a>`);
 	container.append(info);
 
 	hn.item(item.parent)
@@ -123,10 +135,26 @@ function showComment(item) {
 			link.attr("href", `/comments.html#${parent.id}`);
 			link.text(parent.type == "story" ? parent.title : "comment");
 			link.click((e) => {
-				e.preventDefault();
-				window.location.href = link.attr("href");
-				window.location.reload();
+				internalLink(e, link);
 			});
 			info.append(link);
 		});
+
+	const comments = $("<ul id=\"comments\"></ul>");
+
+	createSubComments(item, 1)
+		.then((list) => {
+			for (let i = 0; i < list.length; i++) {
+				comments.append(list[i]);
+			}
+		});
+
+	container.append(comments);
+}
+
+function internalLink(event, el) {
+	event.preventDefault();
+	el = $(el);
+	window.location.href = el.attr("href");
+	window.location.reload();
 }
