@@ -44,6 +44,16 @@ function showStory(item) {
 function createSubComments(item, depth) {
 	return new Promise((resolve, reject) => {
 		if (!item.kids) resolve([]);
+		if (depth > 4) {
+			resolve([`
+<li>
+	<div>
+		<p class="details">
+			<a href="/comments.html#${item.id}" onclick="internalLink(event, this)">More...</a>
+		</p>
+	</div>
+</li>`]);
+		}
 
 		const requests = new Array(item.kids.length);
 
@@ -72,19 +82,6 @@ function createSubComments(item, depth) {
 }
 
 function createComment(item, depth) {
-	if (depth > 4) {
-		return new Promise((resolve, reject) => {
-			resolve(`
-<li>
-	<div>
-		<p class="details">
-			<a href="/comments.html#${item.parent}" onclick="internalLink(event, this)">More...</a>
-		</p>
-	</div>
-</li>`);
-		});
-	}
-
 	return createSubComments(item, depth + 1)
 		.then((children) => {
 			let rendered = "";
