@@ -55,28 +55,20 @@ function createSubComments(item, depth) {
 </li>`]);
 		}
 
-		const requests = new Array(item.kids.length);
+		const comments = new Array(item.kids.length);
 
 		for (let i = 0; i < item.kids.length; i++) {
-			requests[i] = hn.item(item.kids[i]);
+			comments[i] = hn.item(item.kids[i]).then(createComment);
 		}
 
-		$.when.apply($, requests).done(function() {
-			const comments = new Array(item.kids.length);
+		$.when.apply($, comments).done(function() {
+			const rendered = new Array(item.kids.length);
 
-			$.each(arguments, (i, data) => {
-				comments[i] = createComment(data, depth);
+			$.each(arguments, (i, comment) => {
+				rendered[i] = comment;
 			});
 
-			$.when.apply($, comments).done(function() {
-				const rendered = new Array(item.kids.length);
-
-				$.each(arguments, (i, comment) => {
-					rendered[i] = comment;
-				});
-
-				resolve(rendered);
-			});
+			resolve(rendered);
 		});
 	});
 }
