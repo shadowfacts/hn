@@ -86,6 +86,11 @@ ul#comments li p:last-of-type {
 }
 
 
-/*ul#comments li p:last {
-	padding-bottom: 16px;
-}*/
+ul#comments li pre {
+	overflow-x: scroll;
+
+}
+
+ul#comments li pre > code {
+	font-family: monospace;
+}
