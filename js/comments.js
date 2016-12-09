@@ -52,7 +52,7 @@ function showStory(item) {
 function createSubComments(item, depth) {
 	return new Promise((resolve, reject) => {
 		if (!item.kids) resolve([]);
-		if (depth > 4) {
+		if (depth > 5) {
 			resolve([`
 <li>
 	<div>
@@ -66,7 +66,9 @@ function createSubComments(item, depth) {
 		const comments = new Array(item.kids.length);
 
 		for (let i = 0; i < item.kids.length; i++) {
-			comments[i] = hn.item(item.kids[i]).then(createComment);
+			comments[i] = hn.item(item.kids[i]).then((item) => {
+				return createComment(item, depth + 1);
+			});
 		}
 
 		$.when.apply($, comments).done(function() {
