@@ -71,8 +71,14 @@ ul#comments li {
 ul#comments li .details {
 	background-color: #DDD;
 	padding-left: 5px;
+	padding-right: 5px;
 	padding-top: 8px;
 	padding-bottom: 8px;
+}
+
+ul#comments li .details .toggle {
+	cursor: pointer;
+	float: right;
 }
 
 ul#comments li p:not(.details) {
@@ -80,14 +86,14 @@ ul#comments li p:not(.details) {
 	
 }
 
-ul#comments li p:last-of-type {
+ul#comments li .content > p:last-of-type {
 	padding-bottom: 16px;
 }
 
 
 ul#comments li pre {
 	overflow-x: scroll;
-
+	background-color: #EEE;
 }
 
 ul#comments li pre > code {

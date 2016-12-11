@@ -96,8 +96,10 @@ function createComment(item, depth) {
 				return `
 <li>
 	<div>
-		<p class="details">${ago(item.time)} ago</p>
-		<p>[deleted]</p>
+		<p class="details">${ago(item.time)} ago<span class="toggle" onclick="toggle(this)">[–]</span></p>
+		<div class="content">
+			<p>[deleted]</p>
+		</div>
 	</div>
 </li>`;
 			}
@@ -105,8 +107,10 @@ function createComment(item, depth) {
 			return `
 <li>
 	<div>
-		<p class="details"><a href="/comments.html#${item.id}" onclick="internalLink(event, this)">${ago(item.time)} ago</a> by ${item.by}, <a href="https://news.ycombinator.com/item?id=${item.id}" target="_blank">on HN</a></p>
-		<p>${item.text}</p>
+		<p class="details"><a href="/comments.html#${item.id}" onclick="internalLink(event, this)">${ago(item.time)} ago</a> by ${item.by}, <a href="https://news.ycombinator.com/item?id=${item.id}" target="_blank">on HN</a><span class="toggle" onclick="toggle(this)">[–]</span></p>
+		<div class="content">
+			<p>${item.text}</p>
+		</div>
 		<ul class="children">
 			${rendered}
 		</ul>
@@ -156,4 +160,10 @@ function internalLink(event, el) {
 	el = $(el);
 	window.location.href = el.attr("href");
 	window.location.reload();
+}
+
+function toggle(el) {
+	el = $(el);
+	el.parent().parent().find("> .content, > .children").toggle();
+	el.text(el.text() == "[+]" ? "[-]" : "[+]");
 }
