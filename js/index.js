@@ -1,5 +1,9 @@
-let loaded = 0;
+$("#mode-picker").change(() => {
+	window.location.href = "/?mode=" + $("#mode-picker").val();
+});
+$("#mode-picker").val(getMode());
 
+let loaded = 0;
 loadPosts();
 
 function loadPosts() {
@@ -40,9 +44,13 @@ function load(start) {
 		})
 }
 
-function getLoadFunc() {
+function getMode() {
 	const query = window.location.search;
-	const mode = query.length == 0 ? "top" : query.substring(6);
+	return mode = query.length == 0 ? "top" : query.substring(6);
+}
+
+function getLoadFunc() {
+	const mode = getMode();
 	if (mode == "new") {
 		return hn.new;
 	} else if (mode == "best") {
