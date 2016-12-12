@@ -109,7 +109,7 @@ function createComment(item, depth) {
 			return `
 <li>
 	<div>
-		<p class="details"><a href="/comments.html?id=${item.id}">${ago(item.time)} ago</a> by ${item.by}, <a href="https://news.ycombinator.com/item?id=${item.id}" target="_blank">on HN</a><span class="toggle" onclick="toggle(this)">[–]</span></p>
+		<p class="details"><a href="/comments.html?id=${item.id}">${ago(item.time)} ago</a> by ${item.by}<span class="toggle" onclick="toggle(this)">[–]</span></p>
 		<div class="content">
 			<p>${item.text}</p>
 		</div>
@@ -150,7 +150,7 @@ function showComment(item) {
 	createSubComments(item, 1)
 		.then((list) => {
 			$(".loading").remove();
-			
+
 			for (let i = 0; i < list.length; i++) {
 				comments.append(list[i]);
 			}
