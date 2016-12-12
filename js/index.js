@@ -41,7 +41,8 @@ function load(start) {
 }
 
 function getLoadFunc() {
-	const mode = window.location.hash.substring(1).toLowerCase();
+	const query = window.location.search;
+	const mode = query.length == 0 ? "top" : query.substring(6);
 	if (mode == "new") {
 		return hn.new;
 	} else if (mode == "best") {
@@ -52,7 +53,7 @@ function getLoadFunc() {
 		return hn.show;
 	} else if (mode == "jobs") {
 		return hn.jobs;
-	} else {
+	} else if (mode == "top") {
 		return hn.top;
 	}
 }
@@ -75,7 +76,7 @@ function createItem(item) {
 				<p class="domain">${getDomain(item.url)}</p>
 			</section>
 		</a>
-		<a href="/comments.html#${item.id}">
+		<a href="/comments.html?id=${item.id}">
 			<section class="right">
 				<span class="time">${ago(item.time)}</span>
 				<br>

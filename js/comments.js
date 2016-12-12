@@ -1,8 +1,8 @@
 loadItem();
 
 function loadItem() {
-	const hash = window.location.hash.substring(1);
-	hn.item(hash)
+	const id = window.location.search.substring(4);
+	hn.item(id)
 		.then((item) => {
 			if (item.type == "story") {
 				showStory(item);
@@ -34,7 +34,7 @@ function showStory(item) {
 	}
 
 	const info = $("<p></p>");
-	info.html(`<a href="/comments.html#${item.id}" onclick="internalLink(event, this">${ago(item.time)} ago</a> by ${item.by}, ${item.score} point${getPluralEnding(item.score)}, <a href="https://news.ycombinator.com/item?id=${item.id}" target="_blank">on HN</a>`);
+	info.html(`<a href="/comments.html?id=${item.id}" onclick="internalLink(event, this">${ago(item.time)} ago</a> by ${item.by}, ${item.score} point${getPluralEnding(item.score)}, <a href="https://news.ycombinator.com/item?id=${item.id}" target="_blank">on HN</a>`);
 	container.append(info);
 
 	const comments = $("<ul id=\"comments\"></ul>");
@@ -57,7 +57,7 @@ function createSubComments(item, depth) {
 <li>
 	<div>
 		<p class="details">
-			<a href="/comments.html#${item.id}" onclick="internalLink(event, this)">More...</a>
+			<a href="/comments.html?id=${item.id}" onclick="internalLink(event, this)">More...</a>
 		</p>
 	</div>
 </li>`]);
@@ -107,7 +107,7 @@ function createComment(item, depth) {
 			return `
 <li>
 	<div>
-		<p class="details"><a href="/comments.html#${item.id}" onclick="internalLink(event, this)">${ago(item.time)} ago</a> by ${item.by}, <a href="https://news.ycombinator.com/item?id=${item.id}" target="_blank">on HN</a><span class="toggle" onclick="toggle(this)">[–]</span></p>
+		<p class="details"><a href="/comments.html?id=${item.id}">${ago(item.time)} ago</a> by ${item.by}, <a href="https://news.ycombinator.com/item?id=${item.id}" target="_blank">on HN</a><span class="toggle" onclick="toggle(this)">[–]</span></p>
 		<div class="content">
 			<p>${item.text}</p>
 		</div>
@@ -135,7 +135,7 @@ function showComment(item) {
 			info.append(`, on `);
 
 			const link = $(`<a></a>`);
-			link.attr("href", `/comments.html#${parent.id}`);
+			link.attr("href", `/comments.html?id=${parent.id}`);
 			link.text(parent.type == "story" ? parent.title : "comment");
 			link.click((e) => {
 				internalLink(e, link);
