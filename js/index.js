@@ -37,6 +37,8 @@ function load(start) {
 					stories[i] = createItem(data);
 				});
 
+				$(".loading").remove();
+
 				for (let i = 0; i < stories.length; i++) {
 					list.append(stories[i]);
 				}

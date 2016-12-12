@@ -41,6 +41,8 @@ function showStory(item) {
 
 	createSubComments(item, 1)
 		.then((list) => {
+			$(".loading").remove();
+
 			for (let i = 0; i < list.length; i++) {
 				comments.append(list[i]);
 			}
@@ -147,6 +149,8 @@ function showComment(item) {
 
 	createSubComments(item, 1)
 		.then((list) => {
+			$(".loading").remove();
+			
 			for (let i = 0; i < list.length; i++) {
 				comments.append(list[i]);
 			}

@@ -2,6 +2,49 @@
 	font-family: -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
 }
 
+
+/* Loading animation */
+/* Based on https://codepen.io/alanshortis/pen/eJLVXr */
+@keyframes pulse {
+	50% {
+		background: rgb(255, 102, 0);
+	}
+}
+
+.loading {
+	position: relative;
+	top: 50%;
+	left: 50%;
+
+	width: 6px;
+	height: 24px;
+	background: rgba(255, 102, 0, 0.2);
+	animation: pulse 750ms infinite;
+	animation-delay: 250ms;
+}
+
+.loading:before,
+.loading:after {
+	content: "";
+	position: absolute;
+	display: block;
+	height: 16px;
+	width: 6px;
+	background: rgba(255, 102, 0, 0.2);
+	top: 50%;
+	transform: translateY(-50%);
+	animation: pulse 750ms infinite;
+}
+
+.loading:before {
+	left: -12px;
+}
+
+.loading:after {
+	left: 12px;
+	animation-delay: 500ms;
+}
+
 #stories {
 	list-style: none;
 	padding-left: 0px;
